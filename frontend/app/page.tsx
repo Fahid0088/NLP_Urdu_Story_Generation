@@ -2,11 +2,11 @@
 import { useState, useEffect, useRef } from 'react';
 
 export default function Home() {
-  const [prefix, setPrefix] = useState('');
-  const [story, setStory] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const [streaming, setStreaming] = useState(false);
+  const [prefix, setPrefix] = useState<string>('');
+  const [story, setStory] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const [visible, setVisible] = useState<boolean>(false);
+  const [streaming, setStreaming] = useState<boolean>(false);
   const abortRef = useRef<AbortController | null>(null);
   const storyRef = useRef<HTMLDivElement | null>(null);
 
@@ -372,12 +372,8 @@ export default function Home() {
           scroll-behavior: smooth;
         }
 
-        .story-text::-webkit-scrollbar {
-          width: 4px;
-        }
-        .story-text::-webkit-scrollbar-track {
-          background: transparent;
-        }
+        .story-text::-webkit-scrollbar { width: 4px; }
+        .story-text::-webkit-scrollbar-track { background: transparent; }
         .story-text::-webkit-scrollbar-thumb {
           background: rgba(200, 150, 60, 0.2);
           border-radius: 2px;
