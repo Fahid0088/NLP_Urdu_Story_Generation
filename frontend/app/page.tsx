@@ -7,8 +7,8 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
   const [streaming, setStreaming] = useState(false);
-  const abortRef = useRef(null);
-  const storyRef = useRef(null);
+  const abortRef = useRef<AbortController | null>(null);
+  const storyRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     setTimeout(() => setVisible(true), 100);
@@ -44,7 +44,7 @@ export default function Home() {
 
       if (!res.ok) throw new Error('Server error');
 
-      const reader = res.body.getReader();
+      const reader = res.body!.getReader();
       const decoder = new TextDecoder('utf-8');
 
       setLoading(false);
@@ -54,13 +54,12 @@ export default function Home() {
         if (done) break;
         const chunk = decoder.decode(value, { stream: true });
         setStory(prev => prev + chunk);
-        // Auto-scroll
         if (storyRef.current) {
           storyRef.current.scrollTop = storyRef.current.scrollHeight;
         }
       }
-    } catch (err) {
-      if (err.name !== 'AbortError') {
+    } catch (err: unknown) {
+      if (err instanceof Error && err.name !== 'AbortError') {
         setStory('خطا: بیک اینڈ سے جڑنے میں ناکامی');
       }
     }

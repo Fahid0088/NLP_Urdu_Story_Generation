@@ -8,6 +8,9 @@ import math
 import os
 import asyncio
 
+# Run Command
+# C:\Python314\python.exe -m uvicorn main:app --reload --port 8000
+
 def replace_data(data, pair):
     updated_data = []
     i = 0
